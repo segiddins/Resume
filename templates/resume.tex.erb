@@ -1,0 +1,129 @@
+% resume.tex
+% vim:set ft=tex spell:
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{mdwlist}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{tgpagella}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\pagestyle{empty}
+\setlength{\tabcolsep}{0em}
+\geometry{letterpaper, top=0.5in, left=0.70in, right=0.70in, bottom=0.70in}
+
+% indentsection style, used for sections that aren't already in lists
+% that need indentation to the level of all text in the document
+\newenvironment{indentsection}[1]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{#1}}%
+	\item[]%
+}
+{\end{list}}
+
+% opposite of above; bump a section back toward the left margin
+\newenvironment{unindentsection}[1]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{-0.5#1}}%
+	\item[]%
+}
+{\end{list}}
+
+% format two pieces of text, one left aligned and one right aligned
+\newcommand{\headerrow}[2]
+{\noindent \begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
+	#1 &
+	#2 \\
+\end{tabular*}}
+
+% make "C++" look pretty when used in text by touching up the plus signs
+\newcommand{\CPP}
+{C\nolinebreak[4]\hspace{-.05em}\raisebox{.22ex}{\footnotesize\bf ++}}
+
+\newcommand{\ahref}[1]
+{\href{http://#1}{#1}}
+
+\newcommand{\github}[2]
+{\href{https://github.com/#1/#2}{#2}}
+
+% and the actual content starts here
+\begin{document}
+\begin{center}
+{\LARGE \textbf{<%= contact.name %>}}
+
+<%= contact.address.street %>\ \ \textbullet
+\ \ <%= contact.address.city %>, <%= contact.address.state.to_s %> <%= contact.address.zip %>
+\\
+<%= contact.phone %>\ \ \textbullet
+\ \ \href{mailto:<%= contact.email %>}{<%= contact.email %>}\ \ \textbullet
+\ \ \ahref{<%= contact.website %>}
+\end{center}
+
+\hrule
+\vspace{-0.4em}
+\subsection*{Profile}
+<%= profile %>
+
+\vspace{0.8em}
+\hrule
+\vspace{-0.4em}
+\subsection*{Work Experience}
+
+<% work.each do |job| %>
+	\headerrow
+		{\textbf{<%= job.name %>} <% if job.website %>(\ahref{<%= job.website %>})<% end %>}
+		{\textbf{<%= job.location %>}}
+	\\
+	\headerrow
+		{\emph{<%= job.position %>}}
+		{\emph{<%= job.start %> -- <%= job.end %>}}
+	\begin{itemize*}
+        <% job.accomplishments.each do |a| %>
+		\item <%= a %>
+        <% end %>
+	\end{itemize*}
+<% end %>
+
+\vspace{0.4em}
+\hrule
+\vspace{-0.4em}
+\subsection*{Education}
+
+    <% education.each do |school| %>
+	\headerrow
+		{\textbf{<%= school.name %>}}
+		{\textbf{<%= school.location %>}}
+	\\
+	\headerrow
+		{\emph{<%= school.degree %>}}
+		{\emph{<%= school.start %> -- <%= school.end %>}}
+    <%= school.aside %>
+    <% end %>
+
+\vspace{0.8em}
+\hrule
+\vspace{-0.4em}
+\subsection*{Extracurricular Activities/Hobbies}
+
+\begin{itemize}[noitemsep, leftmargin=*]
+<% hobbies.each do |hobby| %>
+    \item <%= hobby %>
+<% end %>
+\end{itemize}
+
+
+\hrule
+\vspace{-0.4em}
+\subsection*{Core Technical Skills}
+
+\hyphenpenalty=1000
+\begin{description*}
+    \item[Languages:]
+    <%= languages.join(', ') %>
+	\item[Open Source Contributions:]
+    <%= open_source.map {|os| "\\github{#{os.organization}}{#{os.name}}"}.join(', ') %>
+\end{description*}
+
+\end{document}
