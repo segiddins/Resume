@@ -162,7 +162,7 @@ task :default => :generate
 
 desc "Remove all generated files"
 task :clean do
-    files = Dir['*.{json,md,html,tex,pdf}'] - ['README.md']
+    files = Dir['build/*.{json,md,html,tex,pdf}']
     files.map { |f| Pathname.new(f).expand_path }.each &:delete
 end
 
@@ -182,25 +182,27 @@ namespace :generate do
         resume = resume(yaml)
         template = Pathname.new('templates/resume.md.erb').expand_path.open(&:read)
         md = ERB.new(template).result(resume.erb_binding)
-        Pathname.new('resume.md').open('w') { |f| f.write md }
+        Pathname.new(filename('md')).open('w') { |f| f.write md }
     end
 
     desc 'Generate the resume html file'
     task :html do
         resume = resume(escape_html(yaml))
         html = Slim::Template.new('templates/resume.slim').render(resume)
-        Pathname.new('resume.html').open('w') { |f| f.write html }
+        Pathname.new(filename('html')).open('w') { |f| f.write html }
     end
 
     desc 'Generate the resume pdf file'
     task :pdf => [:latex] do
-        `PATH=/usr/texbin:$PATH /usr/texbin/xelatex -file-line-error -interaction=nonstopmode -synctex=1 '#{filename('tex')}'`
-        `rm #{Dir.glob('*.{aux,fdb*,out,log,sync*}').map(&:shellescape).join(' ')}`
+        cd build_dir do
+            `PATH=/usr/texbin:$PATH /usr/texbin/xelatex -file-line-error -interaction=nonstopmode -synctex=1 #{filename('tex').split('/').last.shellescape}`
+            `rm #{Dir.glob('*.{aux,fdb*,out,log,sync*}').map(&:shellescape).join(' ')}`
+        end
     end
 
     desc 'Generate the resume json file'
     task :json do
-        Pathname.new('resume.json').open('w') { |f| f.write JSON.pretty_generate(resume(yaml).to_h) }
+        Pathname.new(filename('json')).open('w') { |f| f.write JSON.pretty_generate(resume(yaml).to_h) }
     end
 
     def yaml
@@ -211,7 +213,16 @@ namespace :generate do
         Resume.new(hash)
     end
 
+    def build_dir
+        @build_dir ||= 'build'
+    end
+
     def filename(ext = '')
-        "#{resume(yaml).contact.name} Resume.#{ext}"
+        File.join build_dir, case ext
+        when 'pdf', 'tex'
+           "#{resume(yaml).contact.name} Resume.#{ext}"
+        else
+            "resume.#{ext}"
+        end
     end
 end

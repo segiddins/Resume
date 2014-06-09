@@ -17,18 +17,20 @@
         h3 = 'Work Experience'
         - for job in work
             .job
-                h4 = job.name
-                .position = job.position
-                .location = job.location
-                .years = "#{job.start} - #{job.end}"
-                ul.accomplishments
-                - for accomplishment in job.accomplishments
-                    li == accomplishment
+                .details
+                    h4 = job.name
+                    .position = job.position
+                    .location = job.location
+                    .years = "#{job.start} - #{job.end}"
+                .accomplishments
+                    ul
+                        - for accomplishment in job.accomplishments
+                            li == accomplishment
     .education
         h3 = 'Education'
         - for school in education
             .school
-                .clearfix
+                .details
                     h4 = school.name
                     .degree = school.degree
                     .location = school.location
