@@ -131,6 +131,8 @@ def escape_html(input='')
       .gsub(/\[#\]/, "#")             # Number sign
       .gsub(/\[\$\]/, "$")            # Dollar sign
       .gsub(/\[(.*)\]\((.*)\)/, "<a href=\"\\2\">\\1</a>")   # Link handling
+      .chomp
+      .gsub(/\n/, '<br>')
   else
     input
   end
@@ -151,6 +153,8 @@ def escape_latex(input='')
       .gsub(/#/, "\\\\#")               # Number sign
       .gsub(/\$/, "\\\\$")              # Dollar sign
       .gsub(/\[(.*)\]\((.*)\)/, "\\\\href{\\2}{\\1}")   # Link handling
+      .chomp
+      .gsub(/\n/, '\\\\\\')
   else
     input
   end
@@ -179,7 +183,7 @@ namespace :generate do
 
     desc 'Generate the resume markdown file'
     task :md do
-        resume = resume(yaml)
+        resume = resume(escape_html(yaml))
         template = Pathname.new('templates/resume.md.erb').expand_path.open(&:read)
         md = ERB.new(template).result(resume.erb_binding)
         Pathname.new(filename('md')).open('w') { |f| f.write md }

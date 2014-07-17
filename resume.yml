@@ -9,12 +9,24 @@ contact:
   phone: '(917) 887 - 3993'
   website: segiddins.me
   email: segiddins@segiddins.me
-profile: >
-  University of Chicago, Class of 2017 (triple major in Economics, Computer Science, and Mathematics).
+profile: >-
+  University of Chicago, Class of 2018 (LOA 2014-2015) (triple major in Economics, Computer Science, and Mathematics).
   National Merit Scholar.
   Inducted into Signifer, the Scarsdale, NY Senior High School academic honor society, and Tri-M, national music honor society.
   Developer with significant Ruby/Rails and Objective-C/Cocoa/Cocoa Touch experience.
+  Code used on several million devices daily, and by hundreds of thousands of developers.
 work:
+  - name: Tumblr
+    website: tumblr.com/apps
+    location: 'New York, NY'
+    position: 'iOS Developer'
+    start: June 2014
+    end: September 2014
+    accomplishments:
+      - Worked with a small team to build a top-tier iOS app
+      - 'Navigated a large and complex codebase, refactoring everything in my path'
+      - 'Built several user-facing features, from planning to design to execution and testing'
+      - Collaborated closely with the Creative team to ensure a top-notch user experience
   - name: Slader
     website: slader.com
     location: 'New York, NY'
@@ -36,24 +48,15 @@ work:
       - Prototyped new entries into the mobile space
       - Led a beta test of a new product category
       - Explored moving existing products onto mobile platforms
-  - name: 'Continental-Aero'
-    location: 'Lyndhurst, NJ'
-    position: 'IT & Administrative Support'
-    start: 2004
-    end: 2012
-    accomplishments:
-      - 'Provided email server, website and PC maintenance support to users in NJ and IL'
-      - 'Developed financial models for sales, inventory and banking'
-      - 'Drafted communications for COO with overseas suppliers'
-      - 'Created custom reports to streamline business decisions'
 education:
   - name: University of Chicago
     location: 'Chicago, IL'
     degree: 'The College, B.S., Computer Science, B.S., Mathematics, B.A., Economics'
     start: 2013
     end: '2018 (Expected)'
-    aside: >
+    aside: |-
       Recipient of the 2014 Jane Morton and Henry C. Murphy Award for student leadership
+      Dean's List 2014
   - name: Scarsdale High School
     location: 'Scarsdale, NY'
     degree: 'Honors Student'
@@ -72,6 +75,7 @@ languages:
   - C
   - JS
   - Python
+  - Swift
   - LaTeX
 hobbies:
   - 'Musician (trumpet, bass, and guitar). Flugelhorn player for the University of Chicago Brass Choir. Performed on trumpet with Scarsdale HS Jazz Band in Lincoln Center 2010, 2012 and with Scarsdale HS Wind Ensemble at Carnegie Hall, March 2012'
