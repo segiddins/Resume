@@ -199,7 +199,7 @@ namespace :generate do
     desc 'Generate the resume pdf file'
     task :pdf => [:latex] do
         cd build_dir do
-            `PATH=/usr/texbin:$PATH /usr/texbin/xelatex -file-line-error -interaction=nonstopmode -synctex=1 #{filename('tex').split('/').last.shellescape}`
+            `PATH=/usr/texbin:$PATH xelatex -file-line-error -interaction=nonstopmode -synctex=1 #{filename('tex').split('/').last.shellescape}`
             `rm #{Dir.glob('*.{aux,fdb*,out,log,sync*}').map(&:shellescape).join(' ')}`
         end
     end
