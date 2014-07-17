@@ -199,8 +199,10 @@ namespace :generate do
     desc 'Generate the resume pdf file'
     task :pdf => [:latex] do
         cd build_dir do
+            puts "\n\n\n"
             puts `PATH=/usr/texbin:$PATH xelatex -file-line-error -interaction=nonstopmode -synctex=1 #{filename('tex').split('/').last.shellescape}`
-            fail 'xelatex failed' if $?
+            puts "\n\n\n"
+            fail 'xelatex failed' unless $?.success?
             `rm #{Dir.glob('*.{aux,fdb*,out,log,sync*}').map(&:shellescape).join(' ')}`
         end
     end
