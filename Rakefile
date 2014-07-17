@@ -218,7 +218,7 @@ namespace :generate do
     end
 
     def build_dir
-        @build_dir ||= 'build'
+        @build_dir ||= 'build'.tap {|d| `mkdir -p #{d}`}
     end
 
     def filename(ext = '')
