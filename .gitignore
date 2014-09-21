@@ -31,4 +31,6 @@
 *.xdy
 *.tdo
 Output/
-
+.bundle/
+vendor/
+build/*

@@ -1,0 +1,53 @@
+.resume
+    h2.name = contact.name
+    .contact
+        span.street = contact.address.street
+        span.city = contact.address.city
+        span.state = contact.address.state
+        span.zip = contact.address.zip
+        span.phone = contact.phone
+        span.email
+            a href="mailto:#{contact.email}" = contact.email
+        span.website
+            a href="http://#{contact.website}" = contact.website
+    .profile
+        h3 = 'Profile'
+        p == profile
+    .work
+        h3 = 'Work Experience'
+        - for job in work
+            .job
+                .details
+                    h4 = job.name
+                    .position = job.position
+                    .location = job.location
+                    .years = "#{job.start} - #{job.end}"
+                .accomplishments
+                    ul
+                        - for accomplishment in job.accomplishments
+                            li == accomplishment
+    .education
+        h3 = 'Education'
+        - for school in education
+            .school
+                .details
+                    h4 = school.name
+                    .degree = school.degree
+                    .location = school.location
+                    .years = "#{school.start} - #{school.end}"
+                .aside == school.aside
+    .hobbies
+        h3 = 'Extracurricular Activities/Hobbies'
+        ul
+            - for hobby in hobbies
+                li == hobby
+    .skills
+        h3 = 'Core Technical Skills'
+        .languages
+            span.h4 = 'Languages: '
+            | #{languages.join(', ')}
+        .open-source
+            span.h4 = 'Open Source Contributions: '
+            - for os in open_source
+                span.link
+                    a href=os.github_url = os.name

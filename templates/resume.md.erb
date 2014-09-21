@@ -1,0 +1,35 @@
+## <%= contact.name %>
+<%= contact.address.street %> - <%= contact.address.city %>, <%= contact.address.state %> <%= contact.address.zip %>
+<%= contact.phone %> - [<%= contact.email %>](<%= "mailto:#{contact.email}" %>) - [<%= contact.website %>](<%= "http://#{contact.website}" %>)
+
+### Profile
+<%= profile %>
+
+### Work Experience
+<% for job in work %>
+#### <%= job.name %>
+*<%= job.position %>*
+<%= job.location %>
+*<%= "#{job.start} - #{job.end}" %>*
+<% for accomplishment in job.accomplishments %>
+- <%= accomplishment %>
+<% end %>
+<% end %>
+
+### Education
+<% for school in education %>
+#### <%= school.name %>
+*<%= school.degree %>*
+<%= school.location %>
+*<%= "#{school.start} - #{school.end}" %>*
+<%= school.aside %>
+<% end %>
+
+### Extracurricular Activities/Hobbies
+<% for hobby in hobbies %>
+- <%= hobby %>
+<% end %>
+
+### Core Technical Skills
+__Languages:__ <%= languages.join(', ') %>
+__Open Source Contributions:__ <%= open_source.map { |os| "[#{os.name}](#{os.github_url})" }.join(', ') %>
