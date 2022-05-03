@@ -2,6 +2,7 @@ require 'pathname'
 require 'yaml'
 require 'json'
 require 'erb'
+require 'shellwords'
 require 'slim'
 
 class Resume
@@ -14,7 +15,7 @@ class Resume
   def initialize(hash = {})
     self.contact = Contact.new(hash['contact'])
     self.profile = hash['profile']
-    self.work = (hash['work'] || []).map {|w| Job.new(w)}
+    self.work = (hash['work'] || []).map {|w| Job.new(w)}.reject(&:hidden)
     self.education = (hash['education'] || []).map { |e| School.new(e) }
     self.open_source = (hash['open_source'] || []).map { |o| OpenSource.new(o) }
     self.hobbies = hash['hobbies']
@@ -22,9 +23,9 @@ class Resume
   end
 
   class Job
-    attr_accessor :name, :website, :location, :position, :start, :end, :accomplishments
+    attr_accessor :name, :website, :location, :position, :start, :end, :accomplishments, :hidden
     def initialize(hash = {})
-      %w{name website location position start end accomplishments}.each do |key|
+      %w{name website location position start end accomplishments hidden}.each do |key|
         self.send("#{key}=", hash[key])
       end
     end
@@ -176,16 +177,16 @@ namespace :generate do
   desc 'Generate the resume LaTeX file'
   task :latex do
     resume = resume(escape_latex(yaml))
-    template = Pathname.new('templates/resume.tex.erb').expand_path.open(&:read)
-    latex = ERB.new(template).result(resume.erb_binding)
+    template = Pathname.new('templates/resume.tex.erb').expand_path
+    latex = ERB.new(template.read).tap { _1.filename = template.to_path }.result(resume.erb_binding)
     Pathname.new(filename('tex')).open('w') { |f| f.write latex }
   end
 
   desc 'Generate the resume markdown file'
   task :md do
     resume = resume(escape_html(yaml))
-    template = Pathname.new('templates/resume.md.erb').expand_path.open(&:read)
-    md = ERB.new(template).result(resume.erb_binding)
+    template = Pathname.new('templates/resume.md.erb').expand_path
+    md = ERB.new(template.read).tap { _1.filename = template.to_path }.result(resume.erb_binding)
     Pathname.new(filename('md')).open('w') { |f| f.write md }
   end
 
@@ -198,9 +199,9 @@ namespace :generate do
 
   desc 'Generate the resume pdf file'
   task :pdf => [:latex] do
-    cd build_dir do
-      `PATH=/usr/texbin:$PATH xelatex -file-line-error -interaction=nonstopmode -synctex=1 #{filename('tex').split('/').last.shellescape}`
-      fail 'xelatex failed' unless $?.success?
+    cd(build_dir) do
+      output = `PATH=/usr/texbin:$PATH xelatex -file-line-error -interaction=nonstopmode -synctex=1 #{filename('tex').split('/').last.shellescape}`
+      fail "xelatex failed\n\n#{output}" unless $?.success?
       `rm #{Dir.glob('*.{aux,fdb*,out,log,sync*}').map(&:shellescape).join(' ')}`
     end
   end
@@ -219,7 +220,7 @@ namespace :generate do
   end
 
   def build_dir
-    @build_dir ||= 'build'.tap {|d| mkdir_p d}
+    @build_dir ||= 'build'.tap {|d| FileUtils.mkdir_p d}
   end
 
   def filename(ext = '')

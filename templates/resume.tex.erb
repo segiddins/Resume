@@ -78,11 +78,13 @@
 	\headerrow
 		{\emph{<%= job.position %>}}
 		{\emph{<%= job.start %> -- <%= job.end %>}}
+	<% if job.accomplishments&.any? %>
 	\begin{itemize*}
         <% job.accomplishments.each do |a| %>
 		\item <%= a %>
         <% end %>
 	\end{itemize*}
+	<% end %>
 <% end %>
 
 \vspace{0.4em}
@@ -119,10 +121,10 @@
 
 \hyphenpenalty=1000
 \begin{description*}
-    \item[Languages:]
+  \item[Languages:]
     <%= languages.join(', ') %>
-	\item[Open Source Contributions:]
-    <%= open_source.map {|os| "\\github{#{os.organization}}{#{os.name}}"}.join(', ') %>
+  \item[Open Source Contributions:]
+    <%= open_source.map {|os| "\\github{#{os.organization}}{#{os.name}}".gsub('_', '\_') }.join(', ') %>
 \end{description*}
 
 \end{document}

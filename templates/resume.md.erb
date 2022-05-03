@@ -11,7 +11,7 @@
 *<%= job.position %>*
 <%= job.location %>
 *<%= "#{job.start} - #{job.end}" %>*
-<% for accomplishment in job.accomplishments %>
+<% job.accomplishments&.each do |accomplishment| %>
 - <%= accomplishment %>
 <% end %>
 <% end %>

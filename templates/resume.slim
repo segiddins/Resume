@@ -22,10 +22,11 @@
                     .position = job.position
                     .location = job.location
                     .years = "#{job.start} - #{job.end}"
-                .accomplishments
-                    ul
-                        - for accomplishment in job.accomplishments
-                            li == accomplishment
+                - if job.accomplishments&.any?
+                    .accomplishments
+                        ul
+                            - for accomplishment in job.accomplishments
+                                li == accomplishment
     .education
         h3 = 'Education'
         - for school in education
