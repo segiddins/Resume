@@ -61,8 +61,7 @@ work:
     start: "2014"
     end: "2015"
     accomplishments:
-      - Released a Swift binding for the Realm database
-      - Supported users with usage issues, bugs, and feature requests
+      - Released a Swift binding for the Realm database & supported users with usage issues, bugs, and feature requests
       - Implemented support for nullable / optional values at the binding level
       - Contributed bug fixes and minor enhancements to C++ Core
   - name: CocoaPods (Stripe's Open Source Retreat)
@@ -72,6 +71,7 @@ work:
     start: September 2014
     end: December 2014
     accomplishments:
+      - Received a competitive grant, including stipend & workspace in Stripe's offices, leading to a year off university
       - Wrote a reference-implementation dependency resolution algorithm, Molinillo
       - Integrated work into CocoaPods, Bundler & RubyGems for use by hundreds of thousands of developers
   - name: Tumblr

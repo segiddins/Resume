@@ -153,6 +153,7 @@ def escape_latex(input='')
     .gsub(/''/, "''")                 # Smart quotes (close)
     .gsub(/#/, "\\\\#")               # Number sign
     .gsub(/\$/, "\\\\$")              # Dollar sign
+    .gsub(/%/, "\\\\%")               # Percent
     .gsub(/\[(.*)\]\((.*)\)/, "\\\\href{\\2}{\\1}")   # Link handling
     .chomp
     .gsub(/\n/, '\\\\\\')
