@@ -11,7 +11,7 @@
 \usepackage{enumitem}
 \pagestyle{empty}
 \setlength{\tabcolsep}{0em}
-\geometry{letterpaper, top=0.5in, left=0.70in, right=0.70in, bottom=0.70in}
+\geometry{letterpaper, top=0.5in, left=0.70in, right=0.70in, bottom=0.50in}
 
 % indentsection style, used for sections that aren't already in lists
 % that need indentation to the level of all text in the document
@@ -47,17 +47,22 @@
 \newcommand{\github}[2]
 {\href{https://github.com/#1/#2}{#2}}
 
+\newcommand{\comment}[1]
+{}
+
 % and the actual content starts here
 \begin{document}
 \begin{center}
 {\LARGE \textbf{<%= contact.name %>}}
 
-<%= contact.address.street %>\ \ \textbullet
-\ \ <%= contact.address.city %>, <%= contact.address.state.to_s %> <%= contact.address.zip %>
-\\
-<%= contact.phone %>\ \ \textbullet
-\ \ \href{mailto:<%= contact.email %>}{<%= contact.email %>}\ \ \textbullet
-\ \ \ahref{<%= contact.website %>}
+<%= contact.address.street %>, <%= contact.address.city %>, <%= contact.address.state.to_s %> <%= contact.address.zip %>
+\ \ \textbullet
+\ \ <%= contact.phone %>\ \ \textbullet
+\ \ \href{mailto:<%= contact.email %>}{<%= contact.email %>}
+\comment{
+	\ \ \textbullet
+	\ \ \ahref{<%= contact.website %>}
+}
 \end{center}
 
 \hrule
@@ -70,7 +75,8 @@
 \vspace{-0.8em}
 \subsection*{Work Experience}
 
-<% work.each do |job| %>
+<% work.each_with_index do |job, idx| %>
+	<%= '\hfill\break ' if idx > 0 %>
 	\headerrow
 		{\textbf{<%= job.name %>} <% if job.website %>(\ahref{<%= job.website %>})<% end %>}
 		{\textbf{<%= job.location %>}}
@@ -79,11 +85,11 @@
 		{\emph{<%= job.position %>}}
 		{\emph{<%= job.start %> -- <%= job.end %>}}
 	<% if job.accomplishments&.any? %>
-	\begin{itemize*}
+	\begin{itemize}[nosep, leftmargin=*]
         <% job.accomplishments.each do |a| %>
 		\item <%= a %>
         <% end %>
-	\end{itemize*}
+	\end{itemize}
 	<% end %>
 <% end %>
 
@@ -106,7 +112,7 @@
 \vspace{0.4em}
 \hrule
 \vspace{-0.8em}
-\subsection*{Extracurricular Activities/Hobbies}
+\subsection*{Hobbies}
 
 \begin{itemize}[noitemsep, leftmargin=*]
 <% hobbies.each do |hobby| %>
@@ -114,6 +120,7 @@
 <% end %>
 \end{itemize}
 
+\comment{
 
 \hrule
 \vspace{-0.8em}
@@ -126,5 +133,6 @@
   \item[Open Source Contributions:]
     <%= open_source.map {|os| "\\github{#{os.organization}}{#{os.name}}".gsub('_', '\_') }.join(', ') %>
 \end{description*}
+}
 
 \end{document}

@@ -21,17 +21,20 @@ profile: >-
   Experienced technical leader at Square & Cash App.
   Interim manager of the Cash Lending Underwriting server team.
   Spent 10+ years as a mobile engineer, building features & working on developer empowerment.
-  In need of a resume update.
+  Maintainer of open source projects that run on billions of devices worldwide, powering hundreds of multi-billion dollar companies.
 work:
   - name: Cash App
+    website: cash.app
     location: "San Francisco, CA"
     position: Tech Lead / Interim Manager, Cash Lending Underwriting
-    start: "2020"
-    end: null
+    start: "2021"
+    end: Present
     accomplishments:
       - Lead implementation of ongoing credit limit re-evaluations to improve risk loss & increase originations
-      - Conducted performance conversations with engineers, delivering feedback and offering guidance on getting to the next level
+      - Lead team of 4 engineers, conducted performance conversations, delivering feedback and offering guidance on getting to the next level
       - Responsible for technical leadership across all lending underwriting projects, writing & reviewing design documents & technical implementation
+      - Scaled Borrow product to hit a run rate of $1B in annualized originations, up from $100M, while supporting increased ML experimentation
+      - Conducted 150+ interviews, sat on hiring bars, participated on promo panels
   - name: Square
     website: squareup.com
     location: "San Francisco, CA"
@@ -39,17 +42,18 @@ work:
     start: "2018"
     end: "2021"
     accomplishments:
-      - Lead migration to Bazel build system for 5+ applications & 2+ SDKs in main iOS monorepo
-      - Built out comprehensive metrics story, complete with dashboards for L1/L2 metrics
+      - Lead migration to Bazel build system for 5+ applications & 2+ SDKs in main iOS monorepo, reducing build time by 50% and increasing developer NPS
+      - Built out comprehensive metrics story, complete with dashboards for L1/L2 metrics used to drive annual planning for 40+ engineer organization
       - Responsible for PCI-SPOC compliance efforts, working with internal stakeholders to be first to market with a fully compliant solution
+      - Kept local development functional by any means necessary, including patching the default Apple development toolchain on multiple occasions
   - name: Ruby Together
     website: rubytogether.org
     start: "2016"
     end: "2019"
     position: Bundler & RubyGems Lead
     accomplishments:
-      - Released several versions of both gems, acting as release manager & security DRI
-      - Prepared Bundler 2.0 and RubyGems 3.0 major releases in preparation for tighter integration
+      - Led development of both gems which ship by bundled with Ruby, acting as release manager & security DRI
+      - Prepared Bundler 2.0 and RubyGems 3.0 major releases in preparation for the merger of the two libraries
   - name: Realm
     website: realm.io
     location: "San Francisco, CA"
@@ -69,7 +73,6 @@ work:
     end: December 2014
     accomplishments:
       - Wrote a reference-implementation dependency resolution algorithm
-      - Constructed a reference test suite
       - Integrated work into CocoaPods, Bundler & RubyGems for use by hundreds of thousands of developers
   - name: Tumblr
     website: tumblr.com/apps
@@ -113,14 +116,14 @@ education:
     start: 2013
     end: 2017
     aside: |-
-      Recipient of the 2014 Jane Morton and Henry C. Murphy Award for student leadership
+      Recipient of the 2014 Jane Morton and Henry C. Murphy Award for Student Leadership
       Dean's List 2014, 2016, 2017
 open_source:
   - bazelbuild/rules_apple
   - bazelbuild/rules_swift
   - CocoaPods/CocoaPods
-  - bundler/bundler
   - rubygems/rubygems
+  - bundler/bundler
   - Realm/jazzy
   - RestKit/RestKit
 languages:
@@ -131,6 +134,6 @@ languages:
   - C++
   - Kotlin
 hobbies:
-  - "Avid reader with wide-range of interests, including history, statistics, and social theory"
-  - "Open-source software contributions, found at [github.com/segiddins](https://github.com/segiddins)"
-  - "Core team member on RestKit, CocoaPods, Bundler, & the official Bazel rules for Apple platforms."
+  - "Invited speaker at conferences on 5 continents about leadership & technical subjects"
+  - "Core team member on CocoaPods, Bundler, RubyGems, & the official Bazel rules for Apple platforms."
+  - "Spending time outside, biking when it's sunny and skiing when there's snow"
