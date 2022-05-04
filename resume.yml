@@ -72,7 +72,7 @@ work:
     start: September 2014
     end: December 2014
     accomplishments:
-      - Wrote a reference-implementation dependency resolution algorithm
+      - Wrote a reference-implementation dependency resolution algorithm, Molinillo
       - Integrated work into CocoaPods, Bundler & RubyGems for use by hundreds of thousands of developers
   - name: Tumblr
     website: tumblr.com/apps
